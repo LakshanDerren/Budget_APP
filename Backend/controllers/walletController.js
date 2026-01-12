@@ -32,7 +32,11 @@ const getWallet = async (req, res) => {
 // @access  Private
 const addTransaction = async (req, res) => {
     const { amount, type, category, wallet, note } = req.body;
-    const userId = req.user.id; // From valid token
+
+    if (!req.user || !req.user.id) {
+        return res.status(401).json({ message: 'User not authorized' });
+    }
+    const userId = req.user.id;
 
     try {
         const user = await User.findById(userId);
