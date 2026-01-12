@@ -39,4 +39,5 @@ jobs:
             docker rm backend-app || true
             # Assumes .env file is present on the server or passed via other means.
             # If .env is managed on server:
+              
             docker run -d --name backend-app -p 5000:5000 --env-file .env ${{ secrets.DOCKER_USERNAME }}/backend-app:latest
