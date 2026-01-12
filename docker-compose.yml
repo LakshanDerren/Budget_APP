@@ -3,8 +3,9 @@ version: '3.8'
 services:
   backend:
     container_name: backend-app
-    build:
-      context: ./Backend
+    image: lakshan21256/backend-app:latest
+    # build:
+    #   context: ./Backend
     restart: always
     env_file:
       - ./Backend/.env
