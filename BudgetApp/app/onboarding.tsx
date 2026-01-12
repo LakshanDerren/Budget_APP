@@ -6,7 +6,7 @@ import { addTransactionAsync, setDailyLimitAsync } from '@/src/store/slices/wall
 import { RootState } from '@/src/store/store';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function OnboardingScreen() {
@@ -81,94 +81,105 @@ export default function OnboardingScreen() {
 
     return (
         <ScreenWrapper>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={[styles.stepText, { color: colors.primaryStart }]}>Step {step} of 2</Text>
-                    <Text style={[styles.title, { color: colors.text }]}>{step === 1 ? 'Welcome to Pulse' : 'Calibration'}</Text>
-                    <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                        {step === 1 ? "Let's create your secure account." : "Align your wallet with reality."}
-                    </Text>
-                </View>
-
-                <GlassContainer style={styles.card} intensity={20}>
-                    {step === 1 ? (
-                        <View style={styles.form}>
-                            <Text style={[styles.label, { color: colors.text }]}>Name</Text>
-                            <TextInput
-                                style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
-                                placeholder="Your Name"
-                                placeholderTextColor={colors.textSecondary}
-                                value={name}
-                                onChangeText={setName}
-                            />
-
-                            <Text style={[styles.label, { color: colors.text }]}>Email</Text>
-                            <TextInput
-                                style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
-                                placeholder="john@example.com"
-                                placeholderTextColor={colors.textSecondary}
-                                value={email}
-                                onChangeText={setEmail}
-                                autoCapitalize="none"
-                                keyboardType="email-address"
-                            />
-
-                            <Text style={[styles.label, { color: colors.text }]}>Password</Text>
-                            <TextInput
-                                style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
-                                placeholder="********"
-                                placeholderTextColor={colors.textSecondary}
-                                value={password}
-                                onChangeText={setPassword}
-                                secureTextEntry
-                            />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+            >
+                <ScrollView
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
+                >
+                    <View style={styles.container}>
+                        <View style={styles.header}>
+                            <Text style={[styles.stepText, { color: colors.primaryStart }]}>Step {step} of 2</Text>
+                            <Text style={[styles.title, { color: colors.text }]}>{step === 1 ? 'Welcome to Pulse' : 'Calibration'}</Text>
+                            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+                                {step === 1 ? "Let's create your secure account." : "Align your wallet with reality."}
+                            </Text>
                         </View>
-                    ) : (
-                        <View style={styles.form}>
-                            <Text style={[styles.label, { color: colors.text }]}>Total Cash in Wallet (Liquid)</Text>
-                            <TextInput
-                                style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
-                                placeholder="e.g. 5000"
-                                placeholderTextColor={colors.textSecondary}
-                                keyboardType="numeric"
-                                value={cash}
-                                onChangeText={setCash}
-                            />
 
-                            <View style={{ height: 20 }} />
+                        <GlassContainer style={styles.card} intensity={20}>
+                            {step === 1 ? (
+                                <View style={styles.form}>
+                                    <Text style={[styles.label, { color: colors.text }]}>Name</Text>
+                                    <TextInput
+                                        style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
+                                        placeholder="Your Name"
+                                        placeholderTextColor={colors.textSecondary}
+                                        value={name}
+                                        onChangeText={setName}
+                                    />
 
-                            <Text style={[styles.label, { color: colors.text }]}>Daily Spending Limit</Text>
-                            <TextInput
-                                style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
-                                placeholder="e.g. 2000"
-                                placeholderTextColor={colors.textSecondary}
-                                keyboardType="numeric"
-                                value={limit}
-                                onChangeText={setLimit}
-                            />
-                        </View>
-                    )}
+                                    <Text style={[styles.label, { color: colors.text }]}>Email</Text>
+                                    <TextInput
+                                        style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
+                                        placeholder="john@example.com"
+                                        placeholderTextColor={colors.textSecondary}
+                                        value={email}
+                                        onChangeText={setEmail}
+                                        autoCapitalize="none"
+                                        keyboardType="email-address"
+                                    />
 
-                    <TouchableOpacity
-                        style={[styles.button, { backgroundColor: colors.primaryStart, opacity: isLoading ? 0.7 : 1 }]}
-                        onPress={handleNext}
-                        disabled={isLoading}
-                    >
-                        {isLoading ? (
-                            <ActivityIndicator color="white" />
-                        ) : (
-                            <Text style={styles.buttonText}>{step === 1 ? 'Next' : 'Launch Pulse 🚀'}</Text>
-                        )}
-                    </TouchableOpacity>
+                                    <Text style={[styles.label, { color: colors.text }]}>Password</Text>
+                                    <TextInput
+                                        style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
+                                        placeholder="********"
+                                        placeholderTextColor={colors.textSecondary}
+                                        value={password}
+                                        onChangeText={setPassword}
+                                        secureTextEntry
+                                    />
+                                </View>
+                            ) : (
+                                <View style={styles.form}>
+                                    <Text style={[styles.label, { color: colors.text }]}>Total Cash in Wallet (Liquid)</Text>
+                                    <TextInput
+                                        style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
+                                        placeholder="e.g. 5000"
+                                        placeholderTextColor={colors.textSecondary}
+                                        keyboardType="numeric"
+                                        value={cash}
+                                        onChangeText={setCash}
+                                    />
 
-                    {/* Error Display */}
-                    {(uiError || authError) && (
-                        <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>
-                            {uiError || authError}
-                        </Text>
-                    )}
-                </GlassContainer>
-            </View>
+                                    <View style={{ height: 20 }} />
+
+                                    <Text style={[styles.label, { color: colors.text }]}>Daily Spending Limit</Text>
+                                    <TextInput
+                                        style={[styles.input, { color: colors.text, borderColor: colors.glassBorder }]}
+                                        placeholder="e.g. 2000"
+                                        placeholderTextColor={colors.textSecondary}
+                                        keyboardType="numeric"
+                                        value={limit}
+                                        onChangeText={setLimit}
+                                    />
+                                </View>
+                            )}
+
+                            <TouchableOpacity
+                                style={[styles.button, { backgroundColor: colors.primaryStart, opacity: isLoading ? 0.7 : 1 }]}
+                                onPress={handleNext}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <ActivityIndicator color="white" />
+                                ) : (
+                                    <Text style={styles.buttonText}>{step === 1 ? 'Next' : 'Launch Pulse 🚀'}</Text>
+                                )}
+                            </TouchableOpacity>
+
+                            {/* Error Display */}
+                            {(uiError || authError) && (
+                                <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>
+                                    {uiError || authError}
+                                </Text>
+                            )}
+                        </GlassContainer>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </ScreenWrapper>
     );
 }
