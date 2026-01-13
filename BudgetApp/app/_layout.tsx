@@ -8,6 +8,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from '../src/store/store';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { LogBox } from 'react-native';
+
+// Suppress "Unknown event handler property" warnings caused by react-native-chart-kit / react-native-svg version mismatch
+LogBox.ignoreLogs([
+  'Unknown event handler property',
+  'TouchableMixin is'
+]);
 
 export const unstable_settings = {
   anchor: '(tabs)',
