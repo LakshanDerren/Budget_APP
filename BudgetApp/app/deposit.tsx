@@ -67,13 +67,13 @@ export default function DepositScreen() {
                         <View style={styles.toggleContainer}>
                             <TouchableOpacity
                                 onPress={() => setWalletType('pocket')}
-                                style={[styles.toggleButton, walletType === 'pocket' && styles.toggleActive, { borderColor: colors.success }]}
+                                style={[styles.toggleButton, walletType === 'pocket' && { backgroundColor: colors.success }, { borderColor: colors.success }]}
                             >
                                 <Text style={[styles.toggleText, walletType === 'pocket' && styles.toggleTextActive, { color: walletType === 'pocket' ? 'white' : colors.textSecondary }]}>Pocket</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={() => setWalletType('vault')}
-                                style={[styles.toggleButton, walletType === 'vault' && styles.toggleActive, { borderColor: colors.primaryStart }]}
+                                style={[styles.toggleButton, walletType === 'vault' && { backgroundColor: colors.primaryStart }, { borderColor: colors.primaryStart }]}
                             >
                                 <Text style={[styles.toggleText, walletType === 'vault' && styles.toggleTextActive, { color: walletType === 'vault' ? 'white' : colors.textSecondary }]}>Vault</Text>
                             </TouchableOpacity>

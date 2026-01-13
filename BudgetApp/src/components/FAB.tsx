@@ -27,7 +27,7 @@ export const FAB: React.FC<FABProps> = ({ onPress }) => {
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        bottom: 30,
+        bottom: 100,
         right: 20,
         width: 60,
         height: 60,

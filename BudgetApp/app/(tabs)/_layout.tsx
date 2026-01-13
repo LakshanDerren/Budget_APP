@@ -27,7 +27,7 @@ export default function TabLayout() {
             elevation: 0,
             borderTopWidth: 0,
             backgroundColor: 'transparent',
-            height: Platform.OS === 'ios' ? 85 : 60,
+            height: Platform.OS === 'ios' ? 100 : 80,
           },
           tabBarBackground: () => (
             <BlurView
